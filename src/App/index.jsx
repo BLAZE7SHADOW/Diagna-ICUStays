@@ -1,16 +1,16 @@
 import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import PatientDetails from "./Pages/PatientDetails";
-import Neurology from "./Pages/Neurology";
-import Labs from "./Pages/Labs";
-import Ventilation from "./Pages/Ventilation";
+import Neurology from "./Pages/NeurologyTable";
+import Labs from "./Pages/LabsTable";
+import Ventilation from "./Pages/VentilationTable";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="patients/:patientId" element={<PatientDetails />}>
+        <Route path="patients" element={<PatientDetails />}>
           <Route index element={<Navigate to="neurology" replace />} />
           <Route path="neurology" element={<Neurology />} />
           <Route path="labs" element={<Labs />} />

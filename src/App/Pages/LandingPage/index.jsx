@@ -3,9 +3,12 @@ import { useQuery } from "react-query";
 import { List, Card, Pagination, Spin, Typography } from "antd";
 import { getAllStays } from "../../../services";
 import { formatDate, formatLOS } from "../../../Utils/functions";
+import { useNavigate } from "react-router";
+import dayjs from "dayjs";
 
 const { Title, Text } = Typography;
 const LandingPage = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
@@ -18,6 +21,8 @@ const LandingPage = () => {
     setPageSize(pagesize);
     setCurrentPage(page);
   };
+
+  console.log(data, "data");
 
   return (
     <div style={{ padding: "20px" }}>
@@ -32,15 +37,23 @@ const LandingPage = () => {
         <>
           <List
             grid={{ gutter: 16, column: 3 }}
-            dataSource={data.data}
+            dataSource={data}
             renderItem={(item) => (
               <List.Item>
                 <Card
                   title={<Title level={4}>Patient ID: {item.subject_id}</Title>}
-                  extra={<a href={`/patient/${item.stay_id}`}>View Details</a>}
+                  extra={<a href={`/patients/${item.stay_id}`}>View Details</a>}
                   style={{ width: "100%", cursor: "pointer" }}
                   onClick={() =>
-                    (window.location.href = `/patient/${item.stay_id}`)
+                    navigate(
+                      `/patients?stayId=${encodeURIComponent(
+                        item.stay_id
+                      )}&lastDate=${
+                        item.outtime
+                          ? dayjs(item.outtime).format("YYYY-MM-DD")
+                          : ""
+                      }`
+                    )
                   }
                 >
                   <div>

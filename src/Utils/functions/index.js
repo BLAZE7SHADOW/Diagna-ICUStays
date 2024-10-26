@@ -9,3 +9,24 @@ export const formatDate = (date) => {
 export const formatLOS = (los) => {
   return los && !isNaN(los) ? Math.round(los) : "N/A";
 };
+
+export const filterDataByDate = (data, date) => {
+  return data?.filter((item) => dayjs(item?.date).isSame(date, "day"));
+};
+
+export const parseQueryString = function (query) {
+  const obj = {};
+  if (query.length) {
+    if (query[0] === "?" || query[0] === "#") {
+      query = query.substring(1, query.length);
+    }
+    const tempArr = query.split("&");
+    tempArr.forEach(function (str) {
+      const arr = str.split("=");
+      if (arr.length === 2) {
+        obj[arr[0]] = arr[1];
+      }
+    });
+  }
+  return obj;
+};
