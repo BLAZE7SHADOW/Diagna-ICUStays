@@ -1,19 +1,23 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Layout } from "antd";
 import LandingPage from "./Pages/LandingPage";
 import PatientDetails from "./Pages/PatientDetails";
+import AppHeader from "../components/AppHeader";
+
+const { Content } = Layout;
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="patients" element={<PatientDetails />}>
-          {/* <Route index element={<Navigate to="neurology" replace />} /> */}
-          {/* <Route path="neurology" element={<Neurology />} />
-          <Route path="labs" element={<Labs />} />
-          <Route path="ventilation" element={<Ventilation />} /> */}
-        </Route>
-      </Routes>
+      <Layout style={{ minHeight: "100vh" }}>
+        <AppHeader /> {/* Header appears on all routes */}
+        <Content>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="patients" element={<PatientDetails />} />
+          </Routes>
+        </Content>
+      </Layout>
     </BrowserRouter>
   );
 }
