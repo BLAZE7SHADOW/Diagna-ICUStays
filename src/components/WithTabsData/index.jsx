@@ -5,50 +5,63 @@ import { useQuery } from "react-query";
 import dayjs from "dayjs";
 
 const withDataTabs =
-  (Component) =>
+  (TabContent) =>
   ({ tabsConfig, date, stayId }) => {
     const [activeKey, setActiveKey] = useState(tabsConfig[0]?.key);
     const [activeSubTab, setActiveSubTab] = useState(
       tabsConfig[0]?.subTabs?.[0]?.filterKey || null
     );
 
-    console.log(tabsConfig, tabsConfig.Component, "randi");
-
-    const tabItems = tabsConfig?.map(({ title, key, fetchData, subTabs }) => {
+    const tabItems = tabsConfig?.map((configData) => {
       const formattedDate = dayjs(date).isValid()
         ? dayjs(date).format("YYYY-MM-DD")
         : null;
 
       const { data, isLoading } = useQuery(
-        [key, formattedDate, stayId, activeSubTab],
-        () => fetchData(formattedDate, activeSubTab),
+        [formattedDate, stayId, activeSubTab],
+        () => {
+          if (activeKey !== configData.key) return;
+
+          return configData.fetchData(formattedDate, activeSubTab);
+        },
         { enabled: !!formattedDate }
       );
 
-      const subTabItems = Array.isArray(subTabs)
-        ? subTabs.map(({ title, filterKey, Component: SubComponent }) => ({
-            label: title,
-            key: filterKey,
-            children: <SubComponent data={data || []} date={formattedDate} />,
-          }))
+      const subTabItems = Array.isArray(configData.subTabs)
+        ? configData.subTabs.map(
+            ({ title, filterKey, Component: SubComponent }) => ({
+              label: title,
+              key: filterKey,
+              children: <SubComponent data={data || []} date={formattedDate} />,
+            })
+          )
         : [];
 
       return {
-        label: title,
-        key: key,
+        label: configData.title,
+        key: configData.key,
         children: isLoading ? (
-          <Spin />
-        ) : subTabs && subTabItems.length > 0 ? (
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              marginBlock: "100px",
+            }}
+          >
+            <Spin />
+          </div>
+        ) : configData.subTabs && subTabItems.length > 0 ? (
           <Tabs
             activeKey={activeSubTab}
             onChange={setActiveSubTab}
             items={subTabItems}
           />
         ) : (
-          <Component
-            data={data?.data || []}
+          <TabContent
+            data={Array.isArray(data) ? data : data?.data || []}
             date={formattedDate}
-            mainComponent={tabsConfig.Component}
+            CategoriesComponent={configData.CategoriesComponent}
           />
         ),
       };

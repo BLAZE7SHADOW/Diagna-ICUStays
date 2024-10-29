@@ -5,6 +5,7 @@ import {
   apiNeurology,
   apiVentilation,
 } from "../Utils/variables";
+import axios from "axios";
 
 // export const getAllStays = async (page_number = 1, num_entries = 10) => {
 //   const apiResponse = await fetch(
@@ -16,26 +17,20 @@ import {
 //   return await apiResponse.json();
 // };
 
-import axios from "axios";
-
 // Function to handle API requests and data validation
 const fetchData = async (url) => {
   try {
     const response = await axios.get(url);
     return response.data.data;
   } catch (error) {
-    // Handle different error cases
     if (error.response) {
-      // Server responded with a status other than 200
       console.error(`Error fetching data from ${url}:`, error.response.data);
     } else if (error.request) {
-      // No response was received from the server
       console.error(`No response received for ${url}:`, error.request);
     } else {
-      // Something happened while setting up the request
       console.error(`Error in setup for ${url}:`, error.message);
     }
-    return []; // Return an empty array on error
+    return [];
   }
 };
 
