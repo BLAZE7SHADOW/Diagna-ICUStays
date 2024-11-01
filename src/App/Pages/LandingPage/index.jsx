@@ -62,9 +62,7 @@ const LandingPage = () => {
               style={{ width: "100%", cursor: "pointer" }}
               onClick={() =>
                 navigate(
-                  `/patients?stayId=${encodeURIComponent(
-                    item.stay_id
-                  )}&lastDate=${
+                  `/neurology/gcs?stay_id=${encodeURIComponent(item.stay_id)}&date=${
                     item.outtime ? dayjs(item.outtime).format("YYYY-MM-DD") : ""
                   }`
                 )

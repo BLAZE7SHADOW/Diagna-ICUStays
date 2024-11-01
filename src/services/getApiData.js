@@ -1,10 +1,3 @@
-import {
-  apiAllStaysUrl,
-  apiBaseUrl,
-  apiLabs,
-  apiNeurology,
-  apiVentilation,
-} from "../Utils/variables";
 import axios from "axios";
 
 // export const getAllStays = async (page_number = 1, num_entries = 10) => {
@@ -20,7 +13,7 @@ import axios from "axios";
 // Function to handle API requests and data validation
 const fetchData = async (url) => {
   try {
-    const response = await axios.get(url);
+    const response = await axios({baseURL: env, url, method: "GET"});
     return response.data.data;
   } catch (error) {
     if (error.response) {
