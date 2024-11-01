@@ -1,8 +1,4 @@
 import { useLocation } from "react-router";
-import NeurologyTable from "../NeurologyTable";
-import LabsTable from "../LabsTable";
-import VentilationTable from "../VentilationTable";
-import withDynamicDataFetch from "../withDynamicDataFetch";
 import { useEffect } from "react";
 
 function DynamicContent({ api, columns }) {

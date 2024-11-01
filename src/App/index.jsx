@@ -1,7 +1,6 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Layout } from "antd";
 import LandingPage from "./Pages/LandingPage";
-import PatientDetails from "./Pages/PatientDetails";
 import AppHeader from "../components/Layout/AppHeader";
 import AppSider from "../components/Layout/AppSider";
 import { ROUTE_PATHS } from "../constants";
@@ -29,9 +28,10 @@ function App() {
               />
               <Route
                 path={ROUTE_PATHS.NEUROLOGY.PUPIL.route}
-                element={<DynamicContent api={ROUTE_PATHS.NEUROLOGY.PUPIL.api} />}
+                element={
+                  <DynamicContent api={ROUTE_PATHS.NEUROLOGY.PUPIL.api} />
+                }
               />
-            
             </Routes>
           </Content>
         </Layout>
