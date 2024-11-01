@@ -12,8 +12,8 @@ function App() {
   return (
     <BrowserRouter>
       <Layout style={{ minHeight: "100vh" }}>
-        <Header>
-          <AppHeader /> {/* Header appears on all routes */}
+        <Header style={{ background: "white", paddingInline: "20px" }}>
+          <AppHeader />
         </Header>
         <Layout>
           <Sider>
@@ -36,6 +36,61 @@ function App() {
                 element={
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.NEUROLOGY.PUPIL.api}
+                    columns={ROUTE_PATHS.NEUROLOGY.PUPIL.columns}
+                  />
+                }
+              />
+              <Route
+                path={ROUTE_PATHS.NEUROLOGY.STRENGTH.route}
+                element={
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.NEUROLOGY.STRENGTH.api}
+                    columns={ROUTE_PATHS.NEUROLOGY.STRENGTH.columns}
+                  />
+                }
+              />
+              <Route
+                path={ROUTE_PATHS.NEUROLOGY.ORIENTATION.route}
+                element={
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.NEUROLOGY.ORIENTATION.api}
+                    columns={ROUTE_PATHS.NEUROLOGY.ORIENTATION.columns}
+                  />
+                }
+              />
+              <Route
+                path={ROUTE_PATHS.NEUROLOGY.MOTOR.route}
+                element={
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.NEUROLOGY.MOTOR.api}
+                    columns={ROUTE_PATHS.NEUROLOGY.MOTOR.columns}
+                  />
+                }
+              />
+              <Route
+                path={ROUTE_PATHS.LABS.route}
+                element={
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.LABS.api}
+                    columns={ROUTE_PATHS.LABS.columns}
+                  />
+                }
+              />
+                <Route
+                path={ROUTE_PATHS.VENTILATION.SETTING.route}
+                element={
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.VENTILATION.SETTING.api}
+                    columns={ROUTE_PATHS.VENTILATION.SETTING.columns}
+                  />
+                }
+              />
+              <Route
+                path={ROUTE_PATHS.VENTILATION.OBSERVATION.route}
+                element={
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.VENTILATION.OBSERVATION.api}
+                    columns={ROUTE_PATHS.VENTILATION.OBSERVATION.columns}
                   />
                 }
               />

@@ -1,5 +1,10 @@
 import {
   gcsColumns,
+  labColumns,
+  motorColumns,
+  orientationColumns,
+  pupilColumns,
+  strengthColumns,
   // labColumns,
 } from "../components/DynamicTableColumnConstant";
 
@@ -17,16 +22,44 @@ export const ROUTE_PATHS = {
     GCS: {
       route: "/neurology/gcs",
       api: API_ROUTES.NEUROLOGY + "?type=GCS",
-      columns : gcsColumns,
+      columns: gcsColumns,
     },
     PUPIL: {
-      route: "/neurology/Pupil",
+      route: "/neurology/pupil",
       api: API_ROUTES.NEUROLOGY + "?type=Pupil",
+      columns: pupilColumns,
+    },
+    STRENGTH: {
+      route: "/neurology/strength",
+      api: API_ROUTES.NEUROLOGY + "?type=Strength",
+      columns: strengthColumns,
+    },
+    ORIENTATION: {
+      route: "/neurology/orientation",
+      api: API_ROUTES.NEUROLOGY + "?type=Orientation",
+      columns: orientationColumns,
+    },
+    MOTOR: {
+      route: "/neurology/motor",
+      api: API_ROUTES.NEUROLOGY + "?type=Motor",
+      columns: motorColumns,
     },
   },
-  // LABS: {
-  //   route: "/labs",
-  //   api: API_ROUTES.LABS,
-  //   labColumns,
-  // },
+  LABS: {
+    route: "/labs",
+    api: API_ROUTES.LABS,
+    columns: labColumns,
+  },
+  VENTILATION: {
+    SETTING: {
+      route: "/ventilation/setting",
+      api: API_ROUTES.VENTILATION + "?type=setting",
+      columns: gcsColumns,
+    },
+    OBSERVATION: {
+      route: "/ventilation/observation",
+      api: API_ROUTES.VENTILATION + "?type=observation",
+      columns: pupilColumns,
+    },
+  },
 };

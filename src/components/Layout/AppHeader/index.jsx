@@ -46,7 +46,7 @@ export default function AppHeader() {
   ];
 
   return (
-    <Header style={{ background: "white" }}>
+    <>
       <Row justify={"space-between"} align={"middle"} style={{ minHeight: 64 }}>
         <Col style={{ height: 30 }}>
           <Link to="/">
@@ -66,6 +66,6 @@ export default function AppHeader() {
           </Dropdown>
         </Col>
       </Row>
-    </Header>
+    </>
   );
 }

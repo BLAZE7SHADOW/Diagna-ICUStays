@@ -1,6 +1,6 @@
 import { UserOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { Affix, Layout, Menu } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const { Sider } = Layout;
 
 const NEUROLOGY_SUBTABS = [
@@ -39,6 +39,16 @@ const SIDER_MENU_ITEMS = [
 
 export default function AppSider() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+
+  const queryParams = Array.from(params.entries())
+    .filter(([key, value]) => key && value) // Exclude empty keys or values
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join("&");
 
   const onSelect = ({ keyPath }) => {
     const [type, section] = keyPath;
@@ -46,7 +56,13 @@ export default function AppSider() {
       navigate(`/`);
       return;
     }
-    navigate(`/${section}/${type}`);
+
+    if (keyPath?.length === 1 && section === undefined) {
+      navigate(`/${type}?${queryParams}`);
+      return;
+    }
+
+    navigate(`/${section}/${type}?${queryParams}`);
   };
 
   return (
