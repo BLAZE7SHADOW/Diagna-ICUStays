@@ -28,7 +28,6 @@ function DynamicContent({ apiEndpoint, columns }) {
         )
         .join("&");
 
-      // Construct the full URL by appending the query parameters to the base API endpoint
       const urlWithParams = queryParams
         ? `${apiEndpoint}${apiEndpoint.includes("?") ? "&" : "?"}${queryParams}`
         : apiEndpoint;
