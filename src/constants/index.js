@@ -1,7 +1,9 @@
 import {
   gcsColumns,
-  labColumns,
+  // labColumns,
 } from "../components/DynamicTableColumnConstant";
+
+export const BASEURL = import.meta.env.VITE_API_BASE_URL;
 
 export const API_ROUTES = {
   MISC: "/misc/allStays",
@@ -15,17 +17,16 @@ export const ROUTE_PATHS = {
     GCS: {
       route: "/neurology/gcs",
       api: API_ROUTES.NEUROLOGY + "?type=GCS",
-      gcsColumns,
+      columns : gcsColumns,
     },
     PUPIL: {
       route: "/neurology/Pupil",
       api: API_ROUTES.NEUROLOGY + "?type=Pupil",
-      columns,
     },
   },
-  LABS: {
-    route: "/labs",
-    api: API_ROUTES.LABS,
-    labColumns,
-  },
+  // LABS: {
+  //   route: "/labs",
+  //   api: API_ROUTES.LABS,
+  //   labColumns,
+  // },
 };

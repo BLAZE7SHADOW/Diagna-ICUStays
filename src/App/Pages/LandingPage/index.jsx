@@ -14,7 +14,8 @@ const LandingPage = () => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["stays", currentPage, pageSize],
-    queryFn: () => getAllStays(currentPage, pageSize),
+    queryFn: () =>
+      getAllStays({ page_number: currentPage, num_entries: pageSize }),
   });
 
   const handlePageChange = (page, pagesize) => {
@@ -62,7 +63,9 @@ const LandingPage = () => {
               style={{ width: "100%", cursor: "pointer" }}
               onClick={() =>
                 navigate(
-                  `/neurology/gcs?stay_id=${encodeURIComponent(item.stay_id)}&date=${
+                  `/neurology/gcs?stay_id=${encodeURIComponent(
+                    item.stay_id
+                  )}&date=${
                     item.outtime ? dayjs(item.outtime).format("YYYY-MM-DD") : ""
                   }`
                 )

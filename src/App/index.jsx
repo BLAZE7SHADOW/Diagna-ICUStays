@@ -24,12 +24,19 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route
                 path={ROUTE_PATHS.NEUROLOGY.GCS.route}
-                element={<DynamicContent api={ROUTE_PATHS.NEUROLOGY.GCS.api} />}
+                element={
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.NEUROLOGY.GCS.api}
+                    columns={ROUTE_PATHS.NEUROLOGY.GCS.columns}
+                  />
+                }
               />
               <Route
                 path={ROUTE_PATHS.NEUROLOGY.PUPIL.route}
                 element={
-                  <DynamicContent api={ROUTE_PATHS.NEUROLOGY.PUPIL.api} />
+                  <DynamicContent
+                    apiEndpoint={ROUTE_PATHS.NEUROLOGY.PUPIL.api}
+                  />
                 }
               />
             </Routes>

@@ -1,19 +1,9 @@
 import axios from "axios";
+import { API_ROUTES, BASEURL } from "../constants";
 
-// export const getAllStays = async (page_number = 1, num_entries = 10) => {
-//   const apiResponse = await fetch(
-//     `${apiBaseUrl}${apiAllStaysUrl}?page_number=${page_number}&num_entries=${num_entries}`
-//   );
-//   if (!apiResponse.ok) {
-//     throw new Error(`HTTP error! status: ${apiResponse.status}`);
-//   }
-//   return await apiResponse.json();
-// };
-
-// Function to handle API requests and data validation
-const fetchData = async (url) => {
+export const fetchData = async (url) => {
   try {
-    const response = await axios({baseURL: env, url, method: "GET"});
+    const response = await axios({ baseURL: BASEURL, url, method: "GET" });
     return response.data.data;
   } catch (error) {
     if (error.response) {
@@ -28,24 +18,29 @@ const fetchData = async (url) => {
 };
 
 // Fetch all stays with pagination
-export const getAllStays = async (page_number = 1, num_entries = 10) => {
-  const url = `${apiBaseUrl}${apiAllStaysUrl}?page_number=${page_number}&num_entries=${num_entries}`;
+// export const getAllStays = async (page_number = 1, num_entries = 10) => {
+//   const url = `${apiBaseUrl}${apiAllStaysUrl}?page_number=${page_number}&num_entries=${num_entries}`;
+//   return fetchData(url);
+// };
+
+export const getAllStays = async (params = {}) => {
+  const url = `${API_ROUTES.MISC}?${new URLSearchParams(params).toString()}`;
   return fetchData(url);
 };
 
 // Fetch neurology data
-export const getNeurologyData = async (stayId, date, type) => {
-  return fetchData(
-    `${apiBaseUrl}${apiNeurology}?stay_id=${stayId}&date=${date}&type=${type}`
-  );
-};
+// export const getNeurologyData = async (stayId, date, type) => {
+//   return fetchData(
+//     `${apiBaseUrl}${apiNeurology}?stay_id=${stayId}&date=${date}&type=${type}`
+//   );
+// };
 
-// Fetch labs data
-export const getLabsData = async (stayId, date) => {
-  return fetchData(`${apiBaseUrl}${apiLabs}?stay_id=${stayId}&date=${date}`);
-};
+// // Fetch labs data
+// export const getLabsData = async (stayId, date) => {
+//   return fetchData(`${apiBaseUrl}${apiLabs}?stay_id=${stayId}&date=${date}`);
+// };
 
-// Fetch ventilation data
-export const getVentilationData = async (stayId) => {
-  return fetchData(`${apiBaseUrl}${apiVentilation}?stay_id=${stayId}`);
-};
+// // Fetch ventilation data
+// export const getVentilationData = async (stayId) => {
+//   return fetchData(`${apiBaseUrl}${apiVentilation}?stay_id=${stayId}`);
+// };
