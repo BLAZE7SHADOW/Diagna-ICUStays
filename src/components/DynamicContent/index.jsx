@@ -1,16 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { fetchData, geStayDetails } from "../../services";
-import {
-  Button,
-  Col,
-  DatePicker,
-  message,
-  Row,
-  Skeleton,
-  Table,
-  Typography,
-} from "antd";
+import { Col, DatePicker, Row, Skeleton, Table, Typography } from "antd";
 import {
   capitalizeFirstLetter,
   extractSelectedParams,
@@ -184,10 +175,10 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
       </Title>
 
       <Table
-        dataSource={data}
         columns={columns}
         rowKey="id"
         pagination={{ pageSize: 10 }}
+        dataSource={isLoading ? skeletonData : data}
         loading={{
           spinning: isLoading,
           indicator: (
