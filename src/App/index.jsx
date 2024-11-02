@@ -8,6 +8,7 @@ import DynamicContent from "../components/DynamicContent";
 import ErrorBoundary from "../components/common/ErrorBoundary";
 import Error500 from "../components/common/Error500";
 import useShowSider from "../Utils/hooks/useShowSider";
+import Error404 from "../components/common/Error404";
 
 const { Content, Header, Sider } = Layout;
 
@@ -117,7 +118,7 @@ function AppContent() {
                   />
                 }
               />
-              {/* <Route path="*" element={<NotFound />} /> */}
+              <Route path="*" element={<Error404 />} />
             </Routes>
           </Content>
         </Layout>
