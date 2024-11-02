@@ -5,20 +5,35 @@ import AppHeader from "../components/Layout/AppHeader";
 import AppSider from "../components/Layout/AppSider";
 import { ROUTE_PATHS } from "../constants";
 import DynamicContent from "../components/DynamicContent";
+import ErrorBoundary from "../components/common/ErrorBoundary";
+import Error500 from "../components/common/Error500";
+import useShowSider from "../Utils/hooks/useShowSider";
 
 const { Content, Header, Sider } = Layout;
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout style={{ minHeight: "100vh" }}>
+      <AppContent />
+    </BrowserRouter>
+  );
+}
+
+function AppContent() {
+  const showSider = useShowSider();
+  return (
+    <Layout style={{ minHeight: "100vh" }}>
+      <ErrorBoundary fallback={<Error500 />}>
         <Header style={{ background: "white", paddingInline: "20px" }}>
           <AppHeader />
         </Header>
         <Layout>
-          <Sider>
-            <AppSider />
-          </Sider>
+          {showSider ? (
+            <Sider style={{ background: "white" }}>
+              <AppSider />
+            </Sider>
+          ) : null}
+
           <Content>
             <Routes>
               <Route path="/" element={<LandingPage />} />
@@ -102,11 +117,12 @@ function App() {
                   />
                 }
               />
+              {/* <Route path="*" element={<NotFound />} /> */}
             </Routes>
           </Content>
         </Layout>
-      </Layout>
-    </BrowserRouter>
+      </ErrorBoundary>
+    </Layout>
   );
 }
 

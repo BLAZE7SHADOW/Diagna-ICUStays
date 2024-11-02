@@ -1,7 +1,6 @@
 import { UserOutlined, AppstoreOutlined } from "@ant-design/icons";
-import { Affix, Layout, Menu } from "antd";
+import { Affix, Menu } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
-const { Sider } = Layout;
 
 const NEUROLOGY_SUBTABS = [
   { key: "gcs", label: "GCS" },
@@ -67,16 +66,14 @@ export default function AppSider() {
 
   return (
     <Affix offsetTop={0}>
-      <Sider theme="light" style={{ height: "calc(100vh - 70px)" }}>
-        <Menu
-          theme="light"
-          defaultOpenKeys={["neurology"]}
-          defaultSelectedKeys={["gcs"]}
-          mode="inline"
-          items={SIDER_MENU_ITEMS}
-          onSelect={onSelect}
-        />
-      </Sider>
+      <Menu
+        theme="light"
+        defaultOpenKeys={["neurology"]}
+        defaultSelectedKeys={["gcs"]}
+        mode="inline"
+        items={SIDER_MENU_ITEMS}
+        onSelect={onSelect}
+      />
     </Affix>
   );
 }
