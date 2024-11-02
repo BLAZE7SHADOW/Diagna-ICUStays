@@ -16,39 +16,45 @@ export const API_ROUTES = {
   LABS: "/labs",
   VENTILATION: "/ventilation",
   GET_DATE_RANGE: "/misc/getDateRange",
+  STAY_DETAILS: "/misc/stayDetails",
 };
 
 export const ROUTE_PATHS = {
   NEUROLOGY: {
     GCS: {
+      type: "GCS",
       route: "/neurology/gcs",
       api: API_ROUTES.NEUROLOGY + "?type=GCS",
       columns: gcsColumns,
-      params: ["type", "date", "stay_id"],
+      params: ["date", "stay_id"],
     },
     PUPIL: {
+      type: "Pupil",
       route: "/neurology/pupil",
       api: API_ROUTES.NEUROLOGY + "?type=Pupil",
       columns: pupilColumns,
-      params: ["type", "date", "stay_id"],
+      params: ["date", "stay_id"],
     },
     STRENGTH: {
+      type: "Strength",
       route: "/neurology/strength",
       api: API_ROUTES.NEUROLOGY + "?type=Strength",
       columns: strengthColumns,
-      params: ["type", "date", "stay_id"],
+      params: ["date", "stay_id"],
     },
     ORIENTATION: {
+      type: "Orientation",
       route: "/neurology/orientation",
       api: API_ROUTES.NEUROLOGY + "?type=Orientation",
       columns: orientationColumns,
-      params: ["type", "date", "stay_id"],
+      params: ["date", "stay_id"],
     },
     MOTOR: {
+      type: "Motor",
       route: "/neurology/motor",
       api: API_ROUTES.NEUROLOGY + "?type=Motor",
       columns: motorColumns,
-      params: ["type", "date", "stay_id"],
+      params: ["date", "stay_id"],
     },
   },
   LABS: {
@@ -59,16 +65,18 @@ export const ROUTE_PATHS = {
   },
   VENTILATION: {
     SETTING: {
+      type: "Setting",
       route: "/ventilation/setting",
       api: API_ROUTES.VENTILATION + "?type=setting",
       columns: gcsColumns,
-      params: ["type", "date", "stay_id"],
+      params: ["date", "stay_id"],
     },
     OBSERVATION: {
+      type: "Observation",
       route: "/ventilation/observation",
       api: API_ROUTES.VENTILATION + "?type=observation",
       columns: pupilColumns,
-      params: ["type", "date", "stay_id"],
+      params: ["date", "stay_id"],
     },
   },
 };

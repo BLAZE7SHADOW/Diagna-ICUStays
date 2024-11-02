@@ -28,7 +28,15 @@ export const getAllStays = async (params = {}) => {
   return fetchData(url);
 };
 export const getDateRange = async (params = {}) => {
-  const url = `${API_ROUTES.GET_DATE_RANGE}?${new URLSearchParams(params).toString()}`;
+  const url = `${API_ROUTES.GET_DATE_RANGE}?${new URLSearchParams(
+    params
+  ).toString()}`;
+  return fetchData(url);
+};
+export const geStayDetails = async (params = {}) => {
+  const url = `${API_ROUTES.STAY_DETAILS}?${new URLSearchParams(
+    params
+  ).toString()}`;
   return fetchData(url);
 };
 

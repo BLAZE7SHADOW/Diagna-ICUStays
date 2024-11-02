@@ -2,10 +2,16 @@ import dayjs from "dayjs";
 
 export const gcsColumns = [
   {
+    title: "Chart Date",
+    dataIndex: "charttime",
+    key: "chartdate",
+    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+  },
+  {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("YYYY-MM-DD HH:mm a"),
+    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
   },
   {
     title: "Label",
@@ -26,10 +32,16 @@ export const gcsColumns = [
 
 export const pupilColumns = [
   {
+    title: "Chart Date",
+    dataIndex: "charttime",
+    key: "chartdate",
+    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+  },
+  {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("YYYY-MM-DD HH:mm a"),
+    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
   },
   {
     title: "Label",
@@ -55,10 +67,16 @@ export const pupilColumns = [
 
 export const strengthColumns = [
   {
+    title: "Chart Date",
+    dataIndex: "charttime",
+    key: "chartdate",
+    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+  },
+  {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("YYYY-MM-DD HH:mm a"),
+    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
   },
   {
     title: "Label",
@@ -84,10 +102,16 @@ export const strengthColumns = [
 
 export const orientationColumns = [
   {
+    title: "Chart Date",
+    dataIndex: "charttime",
+    key: "chartdate",
+    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+  },
+  {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("YYYY-MM-DD HH:mm a"),
+    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
   },
   {
     title: "Label",
@@ -113,10 +137,16 @@ export const orientationColumns = [
 
 export const motorColumns = [
   {
+    title: "Chart Date",
+    dataIndex: "charttime",
+    key: "chartdate",
+    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+  },
+  {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("YYYY-MM-DD HH:mm a"),
+    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
   },
   {
     title: "Label",
@@ -142,10 +172,16 @@ export const motorColumns = [
 
 export const labColumns = [
   {
+    title: "Chart Date",
+    dataIndex: "charttime",
+    key: "chartdate",
+    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+  },
+  {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("YYYY-MM-DD HH:mm a"),
+    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
   },
   {
     title: "Label",
@@ -171,10 +207,16 @@ export const labColumns = [
 
 export const ventilationSettingsColumns = [
   {
+    title: "Chart Date",
+    dataIndex: "charttime",
+    key: "chartdate",
+    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+  },
+  {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("YYYY-MM-DD HH:mm a"),
+    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
   },
   {
     title: "Label",

@@ -2,12 +2,12 @@ import dayjs from "dayjs";
 
 // Formats date or returns "N/A" if invalid
 export const formatDate = (date) => {
-  return date ? dayjs(date).format("YYYY-MM-DD HH:mm") : "N/A";
+  return date ? dayjs(date).format("DD MMM YYYY hh:mm A") : "N/A";
 };
 
 // Rounds LOS to 0 decimal places or returns "N/A" if invalid
 export const formatLOS = (los) => {
-  return los && !isNaN(los) ? Math.round(los) : "N/A";
+  return los && !isNaN(los) ? Math.ceil(los) : "N/A";
 };
 
 export const filterDataByDate = (data, date) => {
@@ -63,4 +63,12 @@ export const getTypeFromPath = () => {
     return pathSegments[0];
   }
   return null;
+};
+
+export const capitalizeFirstLetter = (str) => {
+  return str
+    .toLowerCase() // Convert the entire string to lowercase first
+    .split(" ") // Split the string into words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+    .join(" "); // Join the words back into a single string
 };
