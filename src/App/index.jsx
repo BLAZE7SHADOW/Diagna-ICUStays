@@ -28,6 +28,7 @@ function App() {
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.NEUROLOGY.GCS.api}
                     columns={ROUTE_PATHS.NEUROLOGY.GCS.columns}
+                    params={ROUTE_PATHS.NEUROLOGY.GCS.params}
                   />
                 }
               />
@@ -37,6 +38,7 @@ function App() {
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.NEUROLOGY.PUPIL.api}
                     columns={ROUTE_PATHS.NEUROLOGY.PUPIL.columns}
+                    params={ROUTE_PATHS.NEUROLOGY.PUPIL.params}
                   />
                 }
               />
@@ -46,6 +48,7 @@ function App() {
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.NEUROLOGY.STRENGTH.api}
                     columns={ROUTE_PATHS.NEUROLOGY.STRENGTH.columns}
+                    params={ROUTE_PATHS.NEUROLOGY.STRENGTH.params}
                   />
                 }
               />
@@ -55,6 +58,7 @@ function App() {
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.NEUROLOGY.ORIENTATION.api}
                     columns={ROUTE_PATHS.NEUROLOGY.ORIENTATION.columns}
+                    params={ROUTE_PATHS.NEUROLOGY.ORIENTATION.params}
                   />
                 }
               />
@@ -64,6 +68,7 @@ function App() {
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.NEUROLOGY.MOTOR.api}
                     columns={ROUTE_PATHS.NEUROLOGY.MOTOR.columns}
+                    params={ROUTE_PATHS.NEUROLOGY.MOTOR.params}
                   />
                 }
               />
@@ -73,15 +78,17 @@ function App() {
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.LABS.api}
                     columns={ROUTE_PATHS.LABS.columns}
+                    params={ROUTE_PATHS.LABS.params}
                   />
                 }
               />
-                <Route
+              <Route
                 path={ROUTE_PATHS.VENTILATION.SETTING.route}
                 element={
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.VENTILATION.SETTING.api}
                     columns={ROUTE_PATHS.VENTILATION.SETTING.columns}
+                    params={ROUTE_PATHS.VENTILATION.SETTING.params}
                   />
                 }
               />
@@ -91,6 +98,7 @@ function App() {
                   <DynamicContent
                     apiEndpoint={ROUTE_PATHS.VENTILATION.OBSERVATION.api}
                     columns={ROUTE_PATHS.VENTILATION.OBSERVATION.columns}
+                    params={ROUTE_PATHS.VENTILATION.OBSERVATION.params}
                   />
                 }
               />

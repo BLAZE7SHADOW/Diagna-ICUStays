@@ -30,3 +30,37 @@ export const parseQueryString = function (query) {
   }
   return obj;
 };
+
+export const queryParams = (params) => {
+  return Array.from(params.entries())
+    .filter(([key, value]) => key && value) // Exclude empty keys or values
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join("&");
+};
+
+export const extractSelectedParams = (params, keys, keyMapping = {}) => {
+  const selectedParams = new URLSearchParams();
+  Array.from(params.entries()).forEach(([key, value]) => {
+    if (keys.includes(key)) {
+      const mappedKey = keyMapping[key] || key;
+      selectedParams.append(mappedKey, value);
+    }
+  });
+
+  return selectedParams;
+};
+
+export const getTypeFromPath = () => {
+  const pathSegments = window.location.pathname
+    .split("/")
+    .filter((segment) => segment);
+  if (pathSegments.length >= 2) {
+    return pathSegments[pathSegments.length - 2];
+  } else if (pathSegments.length === 1) {
+    return pathSegments[0];
+  }
+  return null;
+};

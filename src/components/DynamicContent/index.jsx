@@ -3,34 +3,56 @@ import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../services";
 import { Table } from "antd";
+import {
+  extractSelectedParams,
+  getTypeFromPath,
+  queryParams,
+} from "../../Utils/functions";
+import { API_ROUTES } from "../../constants";
 
-function DynamicContent({ apiEndpoint, columns }) {
+function DynamicContent({ apiEndpoint, columns, params }) {
   const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  // const stayId = params.get("stayId");
-  // const date = params.get("date");
-  // const type = params.get("type");
-  // const section = params.get("section");
+  const searchParams = new URLSearchParams(location.search);
+  const typeValue = getTypeFromPath();
+  searchParams.append("type", typeValue);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const filteredParamsForRange = extractSelectedParams(
+    searchParams,
+    ["stay_id", "type"],
+    { type: "table_name" }
+  );
+
+  const filteredParamsForApiEndPoint = extractSelectedParams(
+    searchParams,
+    params
+  );
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
       setIsLoading(true);
       setError(null);
-
-      const queryParams = Array.from(params.entries())
-        .filter(([key, value]) => key && value) // Exclude empty keys or values
-        .map(
-          ([key, value]) =>
-            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-        )
-        .join("&");
-
-      const urlWithParams = queryParams
-        ? `${apiEndpoint}${apiEndpoint.includes("?") ? "&" : "?"}${queryParams}`
+      const queryParamsToAdd = queryParams(filteredParamsForApiEndPoint);
+      const urlWithParams = queryParamsToAdd
+        ? `${apiEndpoint}${
+            apiEndpoint.includes("?") ? "&" : "?"
+          }${queryParamsToAdd}`
         : apiEndpoint;
+      try {
+        const result = await fetchData(urlWithParams);
+        setData(result);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    const fetchDateRange = async () => {
+      setIsLoading(true);
+      setError(null);
+      const queryString = queryParams(filteredParamsForRange);
+      const urlWithParams = `${API_ROUTES.GET_DATE_RANGE}?${queryString}`;
 
       try {
         const result = await fetchData(urlWithParams);
@@ -41,7 +63,7 @@ function DynamicContent({ apiEndpoint, columns }) {
         setIsLoading(false);
       }
     };
-
+    fetchDateRange();
     fetchDataFromApi();
   }, [apiEndpoint]); // Re-fetch if the apiEndpoint prop changes
 

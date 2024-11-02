@@ -27,6 +27,10 @@ export const getAllStays = async (params = {}) => {
   const url = `${API_ROUTES.MISC}?${new URLSearchParams(params).toString()}`;
   return fetchData(url);
 };
+export const getDateRange = async (params = {}) => {
+  const url = `${API_ROUTES.GET_DATE_RANGE}?${new URLSearchParams(params).toString()}`;
+  return fetchData(url);
+};
 
 // Fetch neurology data
 // export const getNeurologyData = async (stayId, date, type) => {
