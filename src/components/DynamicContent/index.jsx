@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../services";
 import { DatePicker, Table } from "antd";
@@ -14,6 +13,7 @@ import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 
 function DynamicContent({ apiEndpoint, columns, params }) {
+  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const typeValue = getTypeFromPath();
@@ -21,6 +21,11 @@ function DynamicContent({ apiEndpoint, columns, params }) {
   const [dateRange, setDateRange] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(
+    searchParams.get("date")
+      ? dayjs(searchParams.get("date"), "YYYY-MM-DD")
+      : null
+  );
 
   // Filtered parameters for date range API without 'type'
   const filteredParamsForRange = extractSelectedParams(
@@ -66,9 +71,7 @@ function DynamicContent({ apiEndpoint, columns, params }) {
         const result = await fetchData(urlWithParams);
         setDateRange(result);
       } catch (err) {
-        // setError(err);
-      } finally {
-        // setIsLoading(false);
+        // Handle error if needed
       }
     };
 
@@ -76,13 +79,51 @@ function DynamicContent({ apiEndpoint, columns, params }) {
     fetchDataFromApi();
   }, [apiEndpoint]);
 
-  const disabledDate = (current) => {
-    if (!dateRange.start_time || !dateRange.end_time) return true; // Disable all dates if range is undefined
+  useEffect(() => {
+    // Update URL and fetch data when selectedDate changes
+    if (selectedDate) {
+      const formattedDate = selectedDate.format("YYYY-MM-DD");
+      searchParams.set("date", formattedDate);
+    } else {
+      searchParams.delete("date");
+    }
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
 
+    // Fetch data based on the new date
+    const fetchDataFromApi = async () => {
+      setIsLoading(true);
+      setError(null);
+      const queryParamsToAdd = queryParams(filteredParamsForApiEndPoint);
+      const urlWithParams = queryParamsToAdd
+        ? `${apiEndpoint}${
+            apiEndpoint.includes("?") ? "&" : "?"
+          }${queryParamsToAdd}`
+        : apiEndpoint;
+
+      try {
+        const result = await fetchData(urlWithParams);
+        setData(result);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDataFromApi();
+  }, [selectedDate]); // Only re-run when `selectedDate` changes
+
+  const disabledDate = (current) => {
+    if (!dateRange.start_time || !dateRange.end_time) return true;
     const start = dayjs.utc(dateRange.start_time);
     const end = dayjs.utc(dateRange.end_time);
-
     return current.isBefore(start, "day") || current.isAfter(end, "day");
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date); // Only update `selectedDate` state here
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -92,9 +133,8 @@ function DynamicContent({ apiEndpoint, columns, params }) {
     <>
       <DatePicker
         disabledDate={disabledDate}
-        defaultValue={
-          dateRange.start_time ? dayjs.utc(dateRange.start_time) : null
-        } // Show the start date initially if available
+        onChange={handleDateChange}
+        value={selectedDate} // Bind `DatePicker` to `selectedDate`
         style={{ marginBottom: 16 }}
       />
       <Table
