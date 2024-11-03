@@ -20,6 +20,7 @@ import { API_ROUTES } from "../../constants";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import StayDetailComponent from "../StayDetailComponent";
+import StayDetailsSkeleton from "./StayDetailSkeleton";
 dayjs.extend(utc);
 
 const { Title } = Typography;
@@ -116,10 +117,6 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     return current.isBefore(start, "day") || current.isAfter(end, "day");
   };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
   useEffect(() => {
     fetchStayDetail();
   }, [stayId]);
@@ -161,7 +158,11 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     <>
       <Row gutter={[16, 16]} style={{ margin: "10px", marginBottom: "20px" }}>
         <Col span={20}>
-          <StayDetailComponent item={stayData} />
+          {stayDataLoading ? (
+            <StayDetailsSkeleton />
+          ) : (
+            <StayDetailComponent item={stayData} />
+          )}
         </Col>
         <Col
           span={4}
@@ -174,7 +175,7 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
         >
           <DatePicker
             disabledDate={disabledDate}
-            onChange={handleDateChange}
+            onChange={(date) => setSelectedDate(date)}
             value={selectedDate}
           />
         </Col>
@@ -185,7 +186,7 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
       </Title>
 
       <Table
-        columns={columns}
+        columns={isLoading ? skeletonData : columns}
         rowKey="id"
         pagination={{ pageSize: 10 }}
         dataSource={isLoading ? skeletonData : data}
