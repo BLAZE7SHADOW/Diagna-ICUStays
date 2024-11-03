@@ -6,7 +6,9 @@ import {
   pupilColumns,
   strengthColumns,
   // labColumns,
-} from "../components/DynamicTableColumnConstant";
+} from "./dynamicTableColumn.constant";
+
+export * from "./dynamicTableColumn.constant";
 
 export const BASEURL = import.meta.env.VITE_API_BASE_URL;
 

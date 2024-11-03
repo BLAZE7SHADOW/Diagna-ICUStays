@@ -1,7 +1,15 @@
 import { useLocation, useNavigate } from "react-router";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchData, geStayDetails } from "../../services";
-import { Col, DatePicker, Row, Skeleton, Table, Typography } from "antd";
+import {
+  Col,
+  DatePicker,
+  Row,
+  Skeleton,
+  Table,
+  Typography,
+  message,
+} from "antd";
 import {
   capitalizeFirstLetter,
   extractSelectedParams,
@@ -20,13 +28,16 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+
   const typeValue = getTypeFromPath();
+
   const [data, setData] = useState([]);
   const [stayData, setStayData] = useState([]);
   const [stayDataLoading, setStayDataLoading] = useState(false);
   const [dateRange, setDateRange] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [selectedDate, setSelectedDate] = useState(
     searchParams.get("date")
       ? dayjs(searchParams.get("date"), "YYYY-MM-DD")
@@ -41,17 +52,12 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
       const result = await geStayDetails(stayUrl);
       setStayData(result?.[0]);
     } catch (err) {
-      // setError(err);
+      message.error(`Unable to fetch Stay Details : ${err} !`);
     } finally {
       setStayDataLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchStayDetail();
-  }, [stayId]);
-
-  // Filtered parameters for date range API without 'type'
   const filteredParamsForRange = extractSelectedParams(
     searchParams,
     ["stay_id"],
@@ -60,7 +66,6 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
   if (typeValue) {
     filteredParamsForRange.set("table_name", typeValue);
   }
-
   const filteredParamsForApiEndPoint = extractSelectedParams(
     searchParams,
     params
@@ -90,30 +95,6 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     }
   };
 
-  useLayoutEffect(() => {
-    const missingParams = params?.filter((param) => !searchParams.has(param));
-    if (missingParams.length > 0) {
-      // message.error("This is an error message");
-      navigate("/");
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchDateRange = async () => {
-      const queryString = queryParams(filteredParamsForRange);
-      const urlWithParams = `${API_ROUTES.GET_DATE_RANGE}?${queryString}`;
-      try {
-        const result = await fetchData(urlWithParams);
-        setDateRange(result);
-      } catch (err) {
-        // Handle error if needed
-      }
-    };
-
-    fetchDateRange();
-    fetchDataFromApi();
-  }, [apiEndpoint]);
-
   const getDataOnDateChange = () => {
     if (selectedDate) {
       const formattedDate = selectedDate.format("YYYY-MM-DD");
@@ -124,14 +105,9 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
-    console.log(searchParams.toString(), "searchParams.toString()");
 
     fetchDataFromApi(searchParams.toString());
   };
-
-  useEffect(() => {
-    getDataOnDateChange();
-  }, [selectedDate]);
 
   const disabledDate = (current) => {
     if (!dateRange.start_time || !dateRange.end_time) return true;
@@ -143,6 +119,40 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
+  useEffect(() => {
+    fetchStayDetail();
+  }, [stayId]);
+
+  useEffect(() => {
+    const missingParams = params?.filter(
+      (param) => !searchParams.has(param) || !searchParams.get(param)
+    );
+    if (missingParams.length > 0) {
+      message.error("Something required is missing in the search params !");
+      window.location.replace("/");
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchDateRange = async () => {
+      const queryString = queryParams(filteredParamsForRange);
+      const urlWithParams = `${API_ROUTES.GET_DATE_RANGE}?${queryString}`;
+      try {
+        const result = await fetchData(urlWithParams);
+        setDateRange(result);
+      } catch (err) {
+        message.error(`Unable to fetch the Date Range :  ${err}!`);
+      }
+    };
+
+    fetchDateRange();
+    fetchDataFromApi();
+  }, [apiEndpoint]);
+
+  useEffect(() => {
+    getDataOnDateChange();
+  }, [selectedDate]);
 
   // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

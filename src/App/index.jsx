@@ -10,7 +10,7 @@ import Error500 from "../components/common/Error500";
 import useShowSider from "../Utils/hooks/useShowSider";
 import Error404 from "../components/common/Error404";
 
-const { Content, Header, Sider } = Layout;
+const { Content } = Layout;
 
 function App() {
   return (
@@ -25,16 +25,9 @@ function AppContent() {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <ErrorBoundary fallback={<Error500 />}>
-        <Header style={{ background: "white", paddingInline: "20px" }}>
-          <AppHeader />
-        </Header>
+        <AppHeader />
         <Layout>
-          {showSider ? (
-            <Sider style={{ background: "white" }}>
-              <AppSider />
-            </Sider>
-          ) : null}
-
+          {showSider ? <AppSider /> : null}
           <Content>
             <Routes>
               <Route path="/" element={<LandingPage />} />
