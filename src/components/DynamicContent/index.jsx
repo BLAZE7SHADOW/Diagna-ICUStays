@@ -2,15 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { fetchData, geStayDetails } from "../../services";
 import PropTypes from "prop-types";
-import {
-  Col,
-  Row,
-  Skeleton,
-  Table,
-  Tabs,
-  Typography,
-  message,
-} from "antd";
+import { Col, Row, Skeleton, Table, Tabs, Typography, message } from "antd";
 import {
   capitalizeFirstLetter,
   extractSelectedParams,
@@ -93,6 +85,7 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
       setData(result);
     } catch (err) {
       setError(err);
+      message.error(`Error in setup for ${err}:`, err.message);
     } finally {
       setIsLoading(false);
     }
@@ -146,7 +139,6 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     getDataOnDateChange();
   }, [selectedDate]);
 
-  // if (isLoading) return <DynamicContentSkeleton />;
   if (error) return <div>Error: {error.message}</div>;
 
   const startDate = dayjs.utc(dateRange.start_time);

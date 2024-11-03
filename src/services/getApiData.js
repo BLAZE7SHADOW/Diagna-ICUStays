@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_ROUTES, BASEURL } from "../constants";
+import { message } from "antd";
 
 export const fetchData = async (url) => {
   try {
@@ -7,11 +8,11 @@ export const fetchData = async (url) => {
     return response.data.data;
   } catch (error) {
     if (error.response) {
-      console.error(`Error fetching data from ${url}:`, error.response.data);
+      message.error(`Error fetching data from ${url}:`, error.response.data);
     } else if (error.request) {
-      console.error(`No response received for ${url}:`, error.request);
+      message.error(`No response received for ${url}:`, error.request);
     } else {
-      console.error(`Error in setup for ${url}:`, error.message);
+      message.error(`Error in setup for ${url}:`, error.message);
     }
     return [];
   }
