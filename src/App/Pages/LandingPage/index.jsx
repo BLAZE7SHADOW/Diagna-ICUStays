@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
 import { List, Card, Pagination, Spin, Typography, Row, Col } from "antd";
 import { getAllStays } from "../../../services";
 import { formatDate, formatLOS } from "../../../Utils/functions";
@@ -17,13 +16,28 @@ const { Title, Text } = Typography;
 const LandingPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["stays", currentPage, pageSize],
-    queryFn: () =>
-      getAllStays({ page_number: currentPage, num_entries: pageSize }),
-  });
+  useEffect(() => {
+    const handleFetchAllStayData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getAllStays({
+          page_number: currentPage,
+          num_entries: pageSize,
+        });
+        setData(response);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    handleFetchAllStayData();
+  }, [currentPage, pageSize]);
 
   const handlePageChange = (page, pagesize) => {
     setPageSize(pagesize);
@@ -85,6 +99,7 @@ const LandingPage = () => {
         renderItem={(item) => (
           <List.Item>
             <Card
+              key={item.subject_id}
               title={
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <CalendarOutlined

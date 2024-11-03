@@ -188,7 +188,7 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
 
       <Table
         columns={isLoading ? skeletonData : columns}
-        rowKey="id"
+        rowKey={(record, index) => `${record.subject_id}-${index}`}
         pagination={{ pageSize: 10 }}
         dataSource={isLoading ? skeletonData : data}
         loading={{
