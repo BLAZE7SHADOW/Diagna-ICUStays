@@ -8,7 +8,11 @@ export default function AppHeader() {
       <Row justify={"space-between"} align={"middle"} style={{ minHeight: 64 }}>
         <Col style={{ height: 30 }}>
           <Link to="/">
-            <img src="" alt="Diagna Logo" style={{ maxHeight: 40 }} />
+            <img
+              src="./DiagnaLogo.png"
+              alt="Diagna Logo"
+              style={{ maxHeight: 40 }}
+            />
           </Link>
         </Col>
       </Row>
