@@ -1,1 +1,1 @@
-export * from "./getAllStays";
+export * from "./getApiData";
