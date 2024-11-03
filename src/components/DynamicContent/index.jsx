@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { fetchData, geStayDetails } from "../../services";
+import PropTypes from "prop-types";
 import {
   Col,
   DatePicker,
@@ -207,5 +208,19 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     </>
   );
 }
+
+DynamicContent.propTypes = {
+  apiEndpoint: PropTypes.string.isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      dataIndex: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired,
+      render: PropTypes.func,
+    })
+  ).isRequired,
+  params: PropTypes.arrayOf(PropTypes.string).isRequired,
+  type: PropTypes.string,
+};
 
 export default DynamicContent;
