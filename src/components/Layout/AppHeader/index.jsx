@@ -9,7 +9,7 @@ export default function AppHeader() {
         <Col style={{ height: 30 }}>
           <Link to="/">
             <img
-              src="../../../assets/DiagnaLogo.png"
+              src="/assets/DiagnaLogo.png"
               alt="Diagna Logo"
               style={{ maxHeight: 40 }}
             />

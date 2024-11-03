@@ -39,8 +39,8 @@ export default function AppSider() {
     { icon: <SolutionOutlined />, key: "motor", label: "Motor" },
   ];
   const VENTILATION_SUBTABS = [
-    { icons: <SettingOutlined />, key: "setting", label: "Setting" },
-    { icons: <SettingOutlined />, key: "observation", label: "Observation" },
+    { icon: <SettingOutlined />, key: "setting", label: "Setting" },
+    { icon: <SettingOutlined />, key: "observation", label: "Observation" },
   ];
 
   const SIDER_MENU_ITEMS = [
@@ -53,7 +53,7 @@ export default function AppSider() {
       key: "neurology",
       icon: (
         <img
-          src="../../../assets/brain.png"
+          src="/assets/brain.png"
           alt="Brain"
           style={{ width: "16px", height: "16px" }}
         />
