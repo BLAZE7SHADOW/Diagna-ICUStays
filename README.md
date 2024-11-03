@@ -1,4 +1,4 @@
-# ICU Patient Dashboard
+# Diagna ICU Patient Dashboard
 
 This project is an ICU Patient Dashboard built with React and Vite, designed to display detailed patient information from the ICU in a multi-layered and intuitive format. The dashboard includes features like paginated lists of patient ICU stays, individual patient detail pages, and separate routes for visualizing neurology, lab, and ventilation data with easy day-wise navigation.
 
@@ -70,16 +70,6 @@ The last day of patient stay is shown by default, with a date selector for navig
 Pagination on the landing page for easy navigation of large datasets.
 Day Navigator on each patient detail page, defaulting to the last day of the stay.
 Concise Visualization of data tables for each type within neurology and ventilation categories, enhancing readability and ease of use.
-
-## Directory Structure
-    
-    src/
-    ├── components/      # Reusable components like Table, Card, Sidebar, etc.
-    ├── pages/           # Pages for Landing, Neurology, Labs, Ventilation
-    ├── routes/          # Route definitions and configurations
-    ├── services/        # API service calls
-    ├── App.js           # Main application component with routing setup
-    └── main.js          # Entry point for Vite
 
 
 ## Technologies Used
