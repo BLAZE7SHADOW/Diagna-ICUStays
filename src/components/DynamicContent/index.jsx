@@ -4,10 +4,10 @@ import { fetchData, geStayDetails } from "../../services";
 import PropTypes from "prop-types";
 import {
   Col,
-  DatePicker,
   Row,
   Skeleton,
   Table,
+  Tabs,
   Typography,
   message,
 } from "antd";
@@ -22,10 +22,11 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import StayDetailComponent from "../StayDetailComponent";
 import StayDetailsSkeleton from "./StayDetailSkeleton";
+import DynamicContentSkeleton from "./DynamicContentSkeleton";
 dayjs.extend(utc);
 
 const { Title } = Typography;
-
+const { TabPane } = Tabs;
 function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -111,13 +112,6 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     fetchDataFromApi(searchParams.toString());
   };
 
-  const disabledDate = (current) => {
-    if (!dateRange.start_time || !dateRange.end_time) return true;
-    const start = dayjs.utc(dateRange.start_time);
-    const end = dayjs.utc(dateRange.end_time);
-    return current.isBefore(start, "day") || current.isAfter(end, "day");
-  };
-
   useEffect(() => {
     fetchStayDetail();
   }, [stayId]);
@@ -152,33 +146,49 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
     getDataOnDateChange();
   }, [selectedDate]);
 
-  // if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <DynamicContentSkeleton />;
   if (error) return <div>Error: {error.message}</div>;
+
+  const startDate = dayjs.utc(dateRange.start_time);
+  const endDate = dayjs.utc(dateRange.end_time);
+  const tabs = [];
+
+  for (
+    let date = startDate, dayCount = 1;
+    date.isBefore(endDate.add(1, "day"), "day");
+    date = date.add(1, "day"), dayCount++
+  ) {
+    tabs.push({
+      key: date.format("YYYY-MM-DD"),
+      label: `Day ${dayCount} (${date.format("DD MMM YYYY")})`,
+      date: date,
+    });
+  }
 
   return (
     <>
       <Row gutter={[16, 16]} style={{ margin: "10px", marginBottom: "20px" }}>
-        <Col span={20}>
+        <Col span={24}>
           {stayDataLoading ? (
             <StayDetailsSkeleton />
           ) : (
             <StayDetailComponent item={stayData} />
           )}
         </Col>
-        <Col
-          span={4}
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            paddingRight: "25px",
-          }}
-        >
-          <DatePicker
-            disabledDate={disabledDate}
-            onChange={(date) => setSelectedDate(date)}
-            value={selectedDate}
-          />
+        <Col span={24}>
+          <Tabs
+            activeKey={selectedDate.format("YYYY-MM-DD")}
+            defaultActiveKey={tabs[tabs.length - 1].key}
+            onChange={(key) => {
+              const selected = dayjs.utc(key);
+              setSelectedDate(selected);
+            }}
+            style={{ marginBottom: 5 }}
+          >
+            {tabs.map((tab) => (
+              <TabPane tab={tab.label} key={tab.key} />
+            ))}
+          </Tabs>
         </Col>
       </Row>
 
@@ -186,25 +196,29 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
         {`${capitalizeFirstLetter(typeValue)}${" "}${type} Details`}
       </Title>
 
-      <Table
-        columns={isLoading ? skeletonData : columns}
-        rowKey={(record, index) => `${record.subject_id}-${index}`}
-        pagination={{ pageSize: 10 }}
-        dataSource={isLoading ? skeletonData : data}
-        loading={{
-          spinning: isLoading,
-          indicator: (
-            <Skeleton
-              active
-              title={false}
-              paragraph={{
-                rows: 1,
-                width: ["20%", "20%", "30%", "20%", "10%"],
-              }}
-            />
-          ),
-        }}
-      />
+      {isLoading ? (
+        <DynamicContentSkeleton />
+      ) : (
+        <Table
+          columns={isLoading ? skeletonData : columns}
+          rowKey={(record, index) => `${record.subject_id}-${index}`}
+          pagination={{ pageSize: 10 }}
+          dataSource={isLoading ? skeletonData : data}
+          loading={{
+            spinning: isLoading,
+            indicator: (
+              <Skeleton
+                active
+                title={false}
+                paragraph={{
+                  rows: 1,
+                  width: ["20%", "20%", "30%", "20%", "10%"],
+                }}
+              />
+            ),
+          }}
+        />
+      )}
     </>
   );
 }

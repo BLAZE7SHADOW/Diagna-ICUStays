@@ -1,17 +1,22 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const gcsColumns = [
   {
     title: "Chart Date",
     dataIndex: "charttime",
     key: "chartdate",
-    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+    render: (charttime) => dayjs.utc(charttime).local().format("DD MMM YYYY"),
   },
   {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
+    render: (charttime) => dayjs.utc(charttime).local().format("hh:mm A"),
   },
   {
     title: "Label",
@@ -35,13 +40,13 @@ export const pupilColumns = [
     title: "Chart Date",
     dataIndex: "charttime",
     key: "chartdate",
-    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+    render: (charttime) => dayjs.utc(charttime).local().format("DD MMM YYYY"),
   },
   {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
+    render: (charttime) => dayjs.utc(charttime).local().format("hh:mm A"),
   },
   {
     title: "Label",
@@ -70,13 +75,13 @@ export const strengthColumns = [
     title: "Chart Date",
     dataIndex: "charttime",
     key: "chartdate",
-    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+    render: (charttime) => dayjs.utc(charttime).local().format("DD MMM YYYY"),
   },
   {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
+    render: (charttime) => dayjs.utc(charttime).local().format("hh:mm A"),
   },
   {
     title: "Label",
@@ -105,13 +110,13 @@ export const orientationColumns = [
     title: "Chart Date",
     dataIndex: "charttime",
     key: "chartdate",
-    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+    render: (charttime) => dayjs.utc(charttime).local().format("DD MMM YYYY"),
   },
   {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
+    render: (charttime) => dayjs.utc(charttime).local().format("hh:mm A"),
   },
   {
     title: "Label",
@@ -140,13 +145,13 @@ export const motorColumns = [
     title: "Chart Date",
     dataIndex: "charttime",
     key: "chartdate",
-    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+    render: (charttime) => dayjs.utc(charttime).local().format("DD MMM YYYY"),
   },
   {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
+    render: (charttime) => dayjs.utc(charttime).local().format("hh:mm A"),
   },
   {
     title: "Label",
@@ -175,13 +180,13 @@ export const labColumns = [
     title: "Chart Date",
     dataIndex: "charttime",
     key: "chartdate",
-    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+    render: (charttime) => dayjs.utc(charttime).local().format("DD MMM YYYY"),
   },
   {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
+    render: (charttime) => dayjs.utc(charttime).local().format("hh:mm A"),
   },
   {
     title: "Label",
@@ -210,13 +215,13 @@ export const ventilationSettingsColumns = [
     title: "Chart Date",
     dataIndex: "charttime",
     key: "chartdate",
-    render: (charttime) => dayjs(charttime).format("DD MMM YYYY"), // Format: 12 Sep 2003
+    render: (charttime) => dayjs.utc(charttime).local().format("DD MMM YYYY"),
   },
   {
     title: "Chart Time",
     dataIndex: "charttime",
     key: "charttime",
-    render: (charttime) => dayjs(charttime).format("hh:mm A"), // Format: 03:00 PM
+    render: (charttime) => dayjs.utc(charttime).local().format("hh:mm A"),
   },
   {
     title: "Label",
