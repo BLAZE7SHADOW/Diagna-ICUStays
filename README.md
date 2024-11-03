@@ -87,3 +87,12 @@ Concise Visualization of data tables for each type within neurology and ventilat
 React for building UI components
 Vite for fast, optimized bundling and development
 react-router-dom for client-side routing
+
+
+
+# UI Images
+![image](https://github.com/user-attachments/assets/7c4294cc-ddbb-4b08-9c43-b6a204f4306e)
+
+![image](https://github.com/user-attachments/assets/80567c10-e222-4a49-ad42-45eb3e761214)
+
+
