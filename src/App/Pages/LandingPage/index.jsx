@@ -5,6 +5,13 @@ import { getAllStays } from "../../../services";
 import { formatDate, formatLOS } from "../../../Utils/functions";
 import { useNavigate } from "react-router";
 import dayjs from "dayjs";
+import {
+  AuditOutlined,
+  CalendarOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 const LandingPage = () => {
@@ -51,11 +58,18 @@ const LandingPage = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Row gutter={[16, 16]} justify="center" align="middle">
+      <Row gutter={[16, 16]}>
         <Col xs={24} md={12} style={{ textAlign: "start" }}>
           <Title level={2}>Patient ICU Stays Dashboard</Title>
         </Col>
-        <Col xs={24} md={12} style={{ textAlign: "center" }}>
+        <Col
+          xs={24}
+          md={12}
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
           <Pagination
             showQuickJumper
             current={currentPage}
@@ -71,7 +85,23 @@ const LandingPage = () => {
         renderItem={(item) => (
           <List.Item>
             <Card
-              title={<Title level={4}>Stay Id : {item.stay_id}</Title>}
+              title={
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <CalendarOutlined
+                    style={{ marginRight: "8px", color: "#1890ff" }}
+                  />
+                  <Title level={4} style={{ margin: 0, color: "#1890ff" }}>
+                    Stay ID:
+                  </Title>
+                  <Title
+                    level={4}
+                    copyable
+                    style={{ margin: 0, marginLeft: "8px", color: "#1890ff" }}
+                  >
+                    {item.stay_id}
+                  </Title>
+                </div>
+              }
               style={{ width: "100%", cursor: "pointer" }}
               onClick={() =>
                 navigate(
@@ -85,31 +115,38 @@ const LandingPage = () => {
             >
               <Row gutter={16}>
                 <Col span={24}>
+                  <UserOutlined style={{ marginRight: "10px" }} />
                   <Text strong>Admission ID: </Text>
-                  <Text>{item.hadm_id}</Text>
+                  <Text copyable>{item.hadm_id}</Text>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={24}>
+                  <AuditOutlined style={{ marginRight: "10px" }} />
                   <Text strong>First Care Unit: </Text>
                   <Text>{item.first_careunit}</Text>
                 </Col>
                 <Col span={24}>
+                  <AuditOutlined style={{ marginRight: "10px" }} />
+
                   <Text strong>Last Care Unit: </Text>
                   <Text>{item.last_careunit}</Text>
                 </Col>
                 <Col span={24}>
+                  <CalendarOutlined style={{ marginRight: "10px" }} />
                   <Text strong>Length of Stay (days): </Text>
                   <Text>{formatLOS(item?.los)}</Text>
                 </Col>
                 <Col span={12}>
                   <Row>
+                    <LoginOutlined style={{ marginRight: "10px" }} />
                     <Text strong>Admission Date: </Text>
                     <Text>{formatDate(item?.intime)}</Text>
                   </Row>
                 </Col>
                 <Col span={12}>
                   <Row>
+                    <LogoutOutlined style={{ marginRight: "10px" }} />
                     <Text strong>Discharge Date: </Text>
                     <Text>{formatDate(item?.outtime)}</Text>
                   </Row>

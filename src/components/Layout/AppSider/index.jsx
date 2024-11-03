@@ -1,10 +1,13 @@
 import { Affix, Menu, Layout } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
-import { UserOutlined, AppstoreOutlined } from "@ant-design/icons";
 import {
-  NEUROLOGY_SUBTABS,
-  VENTILATION_SUBTABS,
-} from "../../../constants/appsider.constant";
+  UserOutlined,
+  AppstoreOutlined,
+  HomeOutlined,
+  SolutionOutlined,
+  EyeOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import { queryParams } from "../../../Utils/functions";
 const { Sider } = Layout;
 
@@ -28,15 +31,33 @@ export default function AppSider() {
     navigate(`/${section}/${type}?${queryParamsString}`);
   };
 
+  const NEUROLOGY_SUBTABS = [
+    { icon: <SolutionOutlined />, key: "gcs", label: "GCS" },
+    { icon: <EyeOutlined />, key: "pupil", label: "Pupil" },
+    { icon: <SolutionOutlined />, key: "strength", label: "Strength" },
+    { icon: <SolutionOutlined />, key: "orientation", label: "Orientation" },
+    { icon: <SolutionOutlined />, key: "motor", label: "Motor" },
+  ];
+  const VENTILATION_SUBTABS = [
+    { icons: <SettingOutlined />, key: "setting", label: "Setting" },
+    { icons: <SettingOutlined />, key: "observation", label: "Observation" },
+  ];
+
   const SIDER_MENU_ITEMS = [
     {
       key: "dashboard",
-      icon: <UserOutlined />,
+      icon: <HomeOutlined />,
       label: "Dashboard",
     },
     {
       key: "neurology",
-      icon: <UserOutlined />,
+      icon: (
+        <img
+          src="../../../assets/brain.png"
+          alt="Brain"
+          style={{ width: "16px", height: "16px" }}
+        />
+      ),
       label: "Neurology",
       children: NEUROLOGY_SUBTABS,
     },
