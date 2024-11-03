@@ -15,8 +15,8 @@ This project uses Vite for a fast and optimized development environment with Rea
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/BLAZE7SHADOW/Diagna-ICUStays.git
+   cd Diagna-ICUStays
    
 2. **Install dependencies:**
    ```bash
@@ -27,7 +27,7 @@ This project uses Vite for a fast and optimized development environment with Rea
    ```bash
    npm run dev
    
-  This command will start the Vite development server, and you can access the application at http://localhost:3000 (or the port displayed in your terminal).
+  This command will start the Vite development server, and you can access the application at http://localhost:5173 (or the port displayed in your terminal).
 
 4. **Build for production:**
 
