@@ -94,7 +94,14 @@ const LandingPage = () => {
         </Col>
       </Row>
       <List
-        grid={{ gutter: 16, column: 3 }}
+        grid={{
+          gutter: 16,
+          xs: 1,
+          sm: 1,
+          md: 2,
+          lg: 3,
+          xl: 3,
+        }}
         dataSource={data}
         renderItem={(item) => (
           <List.Item>

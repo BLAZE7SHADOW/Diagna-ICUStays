@@ -141,13 +141,13 @@ function DynamicContent({ apiEndpoint, columns, params, type = "" }) {
 
   if (error) return <div>Error: {error.message}</div>;
 
-  const startDate = dayjs.utc(dateRange.start_time);
-  const endDate = dayjs.utc(dateRange.end_time);
+  const startDate = dayjs.utc(dateRange.start_time).local();
+  const endDate = dayjs.utc(dateRange.end_time).local();
   const tabs = [];
 
   for (
     let date = startDate, dayCount = 1;
-    date.isBefore(endDate.add(1, "day"), "day");
+    date.isBefore(endDate.clone().add(1, "day"), "day");
     date = date.add(1, "day"), dayCount++
   ) {
     tabs.push({
